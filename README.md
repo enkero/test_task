@@ -3,7 +3,10 @@
 conda 4.3.22 (Python 3.6)
 
 numpy==1.16.3
+
 scikit-learn==0.19.1
+
+pytest==3.0.5
 
 
 ##    Run tests 
@@ -29,4 +32,5 @@ python run.py --generate='n' --file='test.txt'
 ##    Files 
 
 test.txt - generated file
+
 sorted.txt - sorted file
