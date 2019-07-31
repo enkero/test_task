@@ -26,4 +26,7 @@ python run.py --n_lines=10 --max_line_length=97
 python run.py --generate='n' --file='test.txt'
 ```
 
+##    Files 
 
+test.txt - generated file
+sorted.txt - sorted file
