@@ -18,8 +18,8 @@ args = parser.parse_args()
 create_temp_directory(cfg.temp_directory)
 
 if args.generate=='y':
-    n_random_lines=int(args.n_lines/2)
-    n_uniform_lines_for_each_buffer=args.n_lines-n_random_lines
+    n_uniform_lines_for_each_buffer=int(args.n_lines*cfg.ratio_random_lines/2)
+    n_random_lines=args.n_lines-n_uniform_lines_for_each_buffer*2
     generate_test_file(args.file,n_random_lines,args.max_line_length,cfg.max_buffer_length,cfg.symbols,n_uniform_lines_for_each_buffer,cfg.n_buffers_per_line)   
 
 sort_by_batches(args.file,cfg.n_buffers_per_batch,cfg.max_buffer_length,cfg.max_symbols_in_memory,cfg.temp_directory)
