@@ -1,5 +1,6 @@
 import argparse
 from config import Config as cfg
+import math
 from functions import (create_temp_directory, generate_test_file,
                        sort_by_batches, open_sorted_batches,
                        merge_and_sort_batches)
@@ -14,6 +15,8 @@ parser.add_argument("--n_lines", help="number of lines in generated file",
                     type=int, default=cfg.n_lines)
 parser.add_argument("--max_line_length", help="maximum line length in file",
                     type=int, default=cfg.max_line_length)
+parser.add_argument("--gb", help="max batch of text (in Gb) read into RAM",
+                    type=float, default=cfg.max_text_batch_size_gb)
 args = parser.parse_args()
 
 
@@ -27,11 +30,13 @@ if args.generate == 'y':
                        cfg.max_buffer_length, cfg.symbols,
                        n_uniform_lines_for_each_buffer, cfg.n_buffers_per_line)
 
-sort_by_batches(args.file, cfg.n_buffers_per_batch, cfg.max_buffer_length,
-                cfg.max_symbols_in_memory, cfg.temp_directory)
+max_symbols_in_memory = int(args.gb*cfg.symbols_per_gb)
+n_buffers_per_batch = math.floor(max_symbols_in_memory/cfg.max_buffer_length)
+sort_by_batches(args.file, n_buffers_per_batch, cfg.max_buffer_length,
+                max_symbols_in_memory, cfg.temp_directory)
 
 opened, mmaped, starts, ends = open_sorted_batches(cfg.temp_directory)
 
 merge_and_sort_batches(opened, mmaped, starts, ends,
                        cfg.sorted_file, cfg.max_buffer_length,
-                       cfg.max_symbols_in_memory, cfg.temp_directory)
+                       max_symbols_in_memory, cfg.temp_directory)

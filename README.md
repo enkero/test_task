@@ -1,3 +1,8 @@
+##    What for?
+
+To sort files too big to fit in memory. Cases when a single line too big to fit in memory also covered.
+
+
 ##    Developed and tested on:
 
 conda 4.3.22 (Python 3.6)
@@ -16,21 +21,22 @@ pytest test.py -v
 ```
 
 
-##    Run on user specified maximum line length and number of lines
+##    See example of test file and result 
+
+test.txt - generated file
+
+sorted.txt - sorted file
+
+
+##    Run on user specified maximum line length, number of lines and maximum size of read text per batch (in Gb)
 
 ```sh
-python run.py --n_lines=10 --max_line_length=97
+python run.py --n_lines=10 --max_line_length=97 --gb 1.0
 ``` 
 
 
 ##    Run on user specified (not generated) file 
 
 ```sh
-python run.py --generate='n' --file='test.txt'
+python run.py --generate='n' --file='test.txt' --gb 1.0
 ```
-
-##    Files 
-
-test.txt - generated file
-
-sorted.txt - sorted file
