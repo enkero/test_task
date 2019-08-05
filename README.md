@@ -1,8 +1,3 @@
-##    What for?
-
-To sort files too big to fit in memory. Cases when a single line too big to fit in memory also covered.
-
-
 ##    Developed and tested on:
 
 conda 4.3.22 (Python 3.6)
